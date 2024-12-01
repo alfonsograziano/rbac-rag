@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: ankane/pgvector:latest # pgvector is pre-installed in this image
+    container_name: pgvector_db
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_psw
+      POSTGRES_DB: postgres_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+volumes:
+  pgvector_data:
+    driver: local
+  pgvector_init:
+    driver: local
